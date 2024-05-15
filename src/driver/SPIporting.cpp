@@ -64,7 +64,7 @@ namespace SPIporting {
 
 	void SPIinit(SPIClass &spi) {
 		_spi = &spi;
-		_spi->begin();
+		_spi->begin(14,12,13);
 	}
 
 	void SPIend() {

@@ -33,8 +33,8 @@ typedef struct Position {
 const char EUI[] = "AA:BB:CC:DD:EE:FF:00:01";
 
 Position position_self = {0,0};
-Position position_B = {3,0};
-Position position_C = {3,2.5};
+Position position_B = {2, 0};
+Position position_C = {0, 2};
 
 double range_self;
 double range_B;
@@ -98,7 +98,8 @@ void setup() {
     DW1000Ng::setNetworkId(RTLS_APP_ID);
     DW1000Ng::setDeviceAddress(1);
 	
-    DW1000Ng::setAntennaDelay(16436);
+    DW1000Ng::setAntennaDelay(16436); 
+    // DW1000Ng::setAntennaDelay(16539);  // 33078/2
     
     Serial.println(F("Committed configuration ..."));
     // DEBUG chip info and registers pretty printed
@@ -149,7 +150,7 @@ void loop() {
 
         } else if(recv_data[9] == 0x60) {
             double range = static_cast<double>(DW1000NgUtils::bytesAsValue(&recv_data[10],2) / 1000.0);
-            String rangeReportString = "Range from: "; rangeReportString += recv_data[7];
+            String rangeReportString = "                         Range from: "; rangeReportString += recv_data[7];
             rangeReportString += " = "; rangeReportString += range;
             Serial.println(rangeReportString);
             if(received_B == false && recv_data[7] == anchor_b[0] && recv_data[8] == anchor_b[1]) {
@@ -159,9 +160,9 @@ void loop() {
                 range_C = range;
                 double x,y;
                 calculatePosition(x,y);
-                String positioning = "Found position - x: ";
-                positioning += x; positioning +=" y: ";
-                positioning += y;
+                String positioning = "                                                          Found position  x: ";
+                positioning += y; positioning +=" y: ";
+                positioning += x;
                 Serial.println(positioning);
                 received_B = false;
             } else {

@@ -13,8 +13,8 @@
 #define pin_miso  12   
 #define pin_mosi  13
 
-// #define I_AM_ANCHOR_A_MAIN
-#define I_AM_ANCHOR_B
+#define I_AM_ANCHOR_A_MAIN
+// #define I_AM_ANCHOR_B
 // #define I_AM_ANCHOR_C
 
 // #define I_AM_TAG

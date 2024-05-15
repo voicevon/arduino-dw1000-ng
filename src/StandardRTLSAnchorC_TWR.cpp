@@ -81,7 +81,8 @@ void setup() {
     DW1000Ng::setNetworkId(RTLS_APP_ID);
     DW1000Ng::setDeviceAddress(3);
 	
-    DW1000Ng::setAntennaDelay(16436);
+    DW1000Ng::setAntennaDelay(16436); 
+    // DW1000Ng::setAntennaDelay(16717);  //33435/2
     
     Serial.println(F("Committed configuration ..."));
     // DEBUG chip info and registers pretty printed
