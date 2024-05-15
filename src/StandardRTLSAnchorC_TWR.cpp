@@ -7,30 +7,28 @@
 */
 
 /* 
- * StandardRTLSAnchorB_TWR.ino
+ * StandardRTLSAnchorC_TWR.ino
  * 
  * This is an example slave anchor in a RTLS using two way ranging ISO/IEC 24730-62_2013 messages
  */
 
-#include <DW1000Ng.hpp>
-#include <DW1000NgUtils.hpp>
-#include <DW1000NgRanging.hpp>
-#include <DW1000NgRTLS.hpp>
 
-// connection pins
-#if defined(ESP8266)
-const uint8_t PIN_SS = 15;
-#else
-const uint8_t PIN_RST = 9;
-const uint8_t PIN_SS = SS; // spi select pin
-#endif
+#include "selector.h"
+#ifdef I_AM_ANCHOR_C
+// // connection pins
+// #if defined(ESP8266)
+// const uint8_t PIN_SS = 15;
+// #else
+// const uint8_t PIN_RST = 9;
+// const uint8_t PIN_SS = SS; // spi select pin
+// #endif
 
 // Extended Unique Identifier register. 64-bit device identifier. Register file: 0x01
-const char EUI[] = "AA:BB:CC:DD:EE:FF:00:02";
+const char EUI[] = "AA:BB:CC:DD:EE:FF:00:03"; 
 
 byte main_anchor_address[] = {0x01, 0x00};
 
-uint16_t next_anchor = 3;
+uint16_t blink_rate = 200;
 
 double range_self;
 
@@ -62,7 +60,7 @@ frame_filtering_configuration_t ANCHOR_FRAME_FILTER_CONFIG = {
 void setup() {
     // DEBUG monitoring
     Serial.begin(115200);
-    Serial.println(F("### arduino-DW1000Ng-ranging-anchor-B ###"));
+    Serial.println(F("### arduino-DW1000Ng-ranging-anchor-C ###"));
     // initialize the driver
     #if defined(ESP8266)
     DW1000Ng::initializeNoInterrupt(PIN_SS);
@@ -81,7 +79,7 @@ void setup() {
     DW1000Ng::setReceiveFrameWaitTimeoutPeriod(5000);
 
     DW1000Ng::setNetworkId(RTLS_APP_ID);
-    DW1000Ng::setDeviceAddress(2);
+    DW1000Ng::setDeviceAddress(3);
 	
     DW1000Ng::setAntennaDelay(16436);
     
@@ -96,7 +94,6 @@ void setup() {
     Serial.print("Network ID & Device Address: "); Serial.println(msg);
     DW1000Ng::getPrintableDeviceMode(msg);
     Serial.print("Device mode: "); Serial.println(msg);
-  
 }
 
 void transmitRangeReport() {
@@ -109,15 +106,17 @@ void transmitRangeReport() {
     DW1000Ng::startTransmit();
 }
  
-void loop() {     
-        RangeAcceptResult result = DW1000NgRTLS::anchorRangeAccept(NextActivity::RANGING_CONFIRM, next_anchor);
-        if(result.success) {
-            delay(2); // Tweak based on your hardware
-            range_self = result.range;
-            transmitRangeReport();
+void loop() {
+     RangeAcceptResult result = DW1000NgRTLS::anchorRangeAccept(NextActivity::ACTIVITY_FINISHED, blink_rate);
+     if(result.success) {
+        delay(4); // Tweak based on your hardware
+        range_self = result.range;
+        transmitRangeReport();
 
-            String rangeString = "Range: "; rangeString += range_self; rangeString += " m";
-            rangeString += "\t RX power: "; rangeString += DW1000Ng::getReceivePower(); rangeString += " dBm";
-            Serial.println(rangeString);
-        }
+        String rangeString = "Range: "; rangeString += range_self; rangeString += " m";
+        rangeString += "\t RX power: "; rangeString += DW1000Ng::getReceivePower(); rangeString += " dBm";
+        Serial.println(rangeString);
+     }
 }
+
+#endif

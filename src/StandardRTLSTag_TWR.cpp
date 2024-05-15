@@ -12,20 +12,15 @@
  * This is an example tag in a RTLS using two way ranging ISO/IEC 24730-62_2013 messages
  */
 
-#include <DW1000Ng.hpp>
-#include <DW1000NgUtils.hpp>
-#include <DW1000NgTime.hpp>
-#include <DW1000NgConstants.hpp>
-#include <DW1000NgRanging.hpp>
-#include <DW1000NgRTLS.hpp>
-
+#include "selector.h"
+#ifdef I_AM_TAG
 // connection pins
-#if defined(ESP8266)
-const uint8_t PIN_SS = 15;
-#else
-const uint8_t PIN_SS = SS; // spi select pin
-const uint8_t PIN_RST = 9;
-#endif
+// #if defined(ESP8266)
+// const uint8_t PIN_SS = 15;
+// #else
+// const uint8_t PIN_SS = SS; // spi select pin
+// const uint8_t PIN_RST = 9;
+// #endif
 
 // Extended Unique Identifier register. 64-bit device identifier. Register file: 0x01
 const char EUI[] = "AA:BB:CC:DD:EE:FF:00:00";
@@ -118,3 +113,5 @@ void loop() {
     if(res.success)
         blink_rate = res.new_blink_rate;
 }
+
+#endif
