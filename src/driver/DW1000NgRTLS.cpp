@@ -172,7 +172,7 @@ namespace DW1000NgRTLS {
         }
 
         DW1000Ng::setDeviceAddress(DW1000NgUtils::bytesAsValue(&init_recv[16], 2));
-        return { true, static_cast<uint16_t>(DW1000NgUtils::bytesAsValue(&init_recv[13], 2)) };
+        return { true, static_cast<uint16_t>(DW1000NgUtils::bytesAsValue(&init_recv[13], 2)) };  // #2 new_blink_rate
     }
 
     static RangeResult tagFinishRange(uint16_t anchor, uint16_t replyDelayUs) {
@@ -279,7 +279,7 @@ namespace DW1000NgRTLS {
             if(result.success)
                 return result;
         }
-        return {false, 0};
+        return {false, 0};  // #2 is new_blink_rate
     }
 
     RangeAcceptResult anchorRangeAccept(NextActivity next, uint16_t value) {
