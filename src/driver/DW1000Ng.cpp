@@ -1261,8 +1261,10 @@ namespace DW1000Ng {
 		// pin and basic member setup
 		// attach interrupt
 		// TODO throw error if pin is not a interrupt pin
-		if(_irq != 0xff)
+		if(_irq != 0xff){
 			attachInterrupt(digitalPinToInterrupt(_irq), interruptServiceRoutine, RISING);
+			Serial.print("-----------------------------  init irq     ");
+		}
 		SPIporting::SPIselect(_ss, _irq);
 		// reset chip (either soft or hard)
 		reset();
@@ -1332,11 +1334,10 @@ namespace DW1000Ng {
 		_handleReceiveTimestampAvailable = handleReceiveTimestampAvailable;
 	}
 
-#if defined(ESP8266)
-	void ICACHE_RAM_ATTR interruptServiceRoutine() {
-#else
 	void interruptServiceRoutine() {
-#endif		// read current status and handle via callbacks
+		// read current status and handle via callbacks
+		pinMode(2, OUTPUT);
+		digitalWrite(2, HIGH);
 		_readSystemEventStatusRegister();
 		if(_isClockProblem() /* TODO and others */ && _handleError != 0) {
 			(*_handleError)();

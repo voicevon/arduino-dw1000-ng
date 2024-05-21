@@ -6,7 +6,7 @@
 #include <driver/DW1000NgRTLS.hpp>
 
 
-#define pin_uwb_irq 34  
+#define PIN_IRQ 34  
 #define PIN_RST  15   
 #define PIN_SS  27   
 #define pin_spi_clk  14   
@@ -14,7 +14,8 @@
 #define pin_mosi  13
 
 
-#define I_AM_TIMER_TESER
+// #define I_AM_TIMER_TESER
+#define I_AM_INTERRUPT_RECEIVER
 // #define I_AM_ANCHOR_A_MAIN
 // #define I_AM_ANCHOR_B
 // #define I_AM_ANCHOR_C

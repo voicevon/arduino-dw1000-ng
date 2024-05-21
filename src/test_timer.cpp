@@ -1,4 +1,7 @@
 #include "Arduino.h"
+#include "selector.h"
+
+#ifdef I_AM_TIMER_TESER
 
 TimerHandle_t my_timer = NULL;
 class Foo{
@@ -35,3 +38,5 @@ void setup(){
 }
 
 void loop(){}
+
+#endif
