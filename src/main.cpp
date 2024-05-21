@@ -329,7 +329,7 @@ void setup()
   pinMode(PIN_RST, OUTPUT);
   digitalWrite(PIN_RST, LOW);
   delayMicroseconds(10);
-  pinMode(PIN_RST, INPUT);
+  pinMode(PIN_RST, INPUT);   // Why ?  wrong typing? 
 
   pinMode(PIN_IRQ, INPUT);
 
