@@ -50,6 +50,18 @@ byte anchor_b[] = {0x02, 0x00};
 uint16_t next_anchor = 2;
 byte anchor_c[] = {0x03, 0x00};
 
+    // boolean extendedFrameLength;
+    // boolean receiverAutoReenable;
+    // boolean smartPower;
+    // boolean frameCheck;
+    // boolean nlos;
+    // SFDMode sfd;
+    // Channel channel;
+    // DataRate dataRate;
+    // PulseFrequency pulseFreq;
+    // PreambleLength preambleLen;
+    // PreambleCode preaCode;
+
 device_configuration_t DEFAULT_CONFIG = {
     false,
     true,

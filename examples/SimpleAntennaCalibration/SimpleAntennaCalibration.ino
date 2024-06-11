@@ -109,6 +109,17 @@ uint16_t successRangingCount = 0;
 uint32_t rangingCountPeriod = 0;
 float samplingRate = 0;
 
+    // boolean extendedFrameLength;
+    // boolean receiverAutoReenable;
+    // boolean smartPower;
+    // boolean frameCheck;
+    // boolean nlos;
+    // SFDMode sfd;
+    // Channel channel;
+    // DataRate dataRate;
+    // PulseFrequency pulseFreq;
+    // PreambleLength preambleLen;
+    // PreambleCode preaCode
 device_configuration_t DEFAULT_CONFIG = {
     false,
     true,
@@ -123,6 +134,12 @@ device_configuration_t DEFAULT_CONFIG = {
     PreambleCode::CODE_3
 };
 
+    // boolean interruptOnSent;
+    // boolean interruptOnReceived;
+    // boolean interruptOnReceiveFailed;
+    // boolean interruptOnReceiveTimeout;
+    // boolean interruptOnReceiveTimestampAvailable;
+    // boolean interruptOnAutomaticAcknowledgeTrigger;   6 items
 interrupt_configuration_t DEFAULT_INTERRUPT_CONFIG = {
     true,
     true,
